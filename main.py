@@ -65,6 +65,7 @@ class window(QWidget): #Create Window
         selbtn2.setGeometry(285, 45, 50, 30)
         #self.selbtn2.resize(self.selbtn2.sizeHint())
 
+        dropdown.currentTextChanged.connect(window.setindex)
         dropdown.currentTextChanged.connect(self.onTextChanged)
         #dropdown.currentTextChanged.connect(cvtbtn.setText(globals.operation))
         selbtn.clicked.connect(self.openFileNameDialog)
@@ -73,7 +74,11 @@ class window(QWidget): #Create Window
         #self.setLayout(vbox)
         self.show()
 
-
+    def setindex():
+        global index
+        index = dropdown.currentIndex()
+        print ("hi")
+        print (str(indexint))
 
     def openFileNameDialog(self): #Choose ISO to Convert
         options = QFileDialog.Options()
@@ -97,7 +102,7 @@ class window(QWidget): #Create Window
         shell.main()
 
     def onTextChanged(self):
-        if (dropdown.currentIndex() == 2):
+        if (dropdown.currentIndex() & index == 2):
             window.getCombineSave(self)
 
         operate = dropdown.currentText()
@@ -110,11 +115,16 @@ class window(QWidget): #Create Window
         text, destination = QInputDialog.getText(self, "Save Name", "Name of Combined Iso: ")
         if destination:
             if (text == ""):
+                global index
                 msg = QMessageBox()
                 msg.setWindowTitle("Error")
                 msg.setText("You didn't input any text!")
+                msg.setIcon(QMessageBox.Critical)
                 msg.exec_()
+                index = 0
                 window.getCombineSave(self)
+            index = 0
+            window.onTextChanged(self)
             globals.CombineFileName(text)
         else:
             dropdown.setCurrentIndex(indexint)

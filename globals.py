@@ -26,3 +26,4 @@ def CombineFileName(inString):
     global destination
     destination = inString
     print (destination)
+    print(inString)
