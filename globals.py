@@ -21,3 +21,8 @@ def convertFileName(inString):
 def setText(inString):
     global operation    
     operation = inString
+
+def CombineFileName(inString):
+    global destination
+    destination = inString
+    print (destination)

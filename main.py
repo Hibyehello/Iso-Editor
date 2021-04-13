@@ -22,7 +22,8 @@ class window(QWidget): #Create Window
 
         self.setWindowTitle(title)
 
-        Operations = ["Convert", "Extract"]
+        Operations = ["Convert", "Extract", "Combine"]
+        global indexint
         indexint = 0
 
         stringin = Operations[indexint]
@@ -85,7 +86,7 @@ class window(QWidget): #Create Window
     def saveFileDialog(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","","All Files(*);;Folder(/);;Disk Image Files (*.iso);;Wii Backup Image (*.wbfs)", options=options)
+        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getSaveFileName()","","All Files(*);;Folder(/);;Disk Image Files (*.iso);;Wii Backup Image (*.wbfs)", options=options)
         if fileName:
             globals.cvfile = fileName
             self.textbox2.setText(fileName)
@@ -96,10 +97,27 @@ class window(QWidget): #Create Window
         shell.main()
 
     def onTextChanged(self):
+        if (dropdown.currentIndex() == 2):
+            window.getCombineSave(self)
+
         operate = dropdown.currentText()
         globals.setText(operate)
         cvtbtn.setText(globals.operation + " File")
+        print (str(dropdown.currentIndex()))
 
+    def getCombineSave(self):
+        global destination 
+        text, destination = QInputDialog.getText(self, "Save Name", "Name of Combined Iso: ")
+        if destination:
+            if (text == ""):
+                msg = QMessageBox()
+                msg.setWindowTitle("Error")
+                msg.setText("You didn't input any text!")
+                msg.exec_()
+                window.getCombineSave(self)
+            globals.CombineFileName(text)
+        else:
+            dropdown.setCurrentIndex(indexint)
 
 def main(): #Main Loop
 

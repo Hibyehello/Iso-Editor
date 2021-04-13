@@ -1,4 +1,6 @@
 import subprocess
+
+from PyQt5.QtWidgets import QInputDialog
 import globals
 
 def main():
@@ -10,6 +12,8 @@ def main():
         subprocess.call(["wit", "copy", globals.infile, globals.cvinFile])
     elif (globals.operation == "Extract"):
         subprocess.call(["wit", "extract", globals.infile, globals.cvinFile])
+    elif (globals.operation == "Combine"):
+        subprocess.call(["wit", "mix", globals.infile, globals.cvinFile, "--dest" , globals.destination + ".iso"])
 
 
 
