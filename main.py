@@ -77,8 +77,7 @@ class window(QWidget): #Create Window
     def setindex():
         global index
         index = dropdown.currentIndex()
-        print ("hi")
-        print (str(indexint))
+        print (str(index))
 
     def openFileNameDialog(self): #Choose ISO to Convert
         options = QFileDialog.Options()

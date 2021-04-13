@@ -4,7 +4,7 @@ def globalvars():
     global cvfile
 
 # Define Global Variables
-    version = "v0.1"
+    version = "v1"
     file = ""
     cvfile = ""
 
